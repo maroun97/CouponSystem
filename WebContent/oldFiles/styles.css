@@ -1,0 +1,33 @@
+@charset "UTF-8";
+#TitleQuiestion{
+  text-align: center;
+}
+#MainTable{
+ position: relative;
+  animation: MOVETORIGHT 5s ;
+   animation-iteration-count: 1;
+   left: 480px;
+}
+@keyframes MOVETORIGHT {
+  from {left: 0px;}
+  to {left: 480px;}
+}
+
+#CustomerDiv{
+	background-color: yellow;
+	border: 2px solid black;
+	padding: 25px;
+
+} 
+#CompanyDiv{
+	background-color: blue;
+	border: 2px solid black;
+	padding: 25px;
+
+} 
+#AdminDiv{
+	background-color: green;
+	border: 2px solid black;
+	padding: 25px;
+
+} 

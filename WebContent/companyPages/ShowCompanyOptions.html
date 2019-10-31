@@ -1,0 +1,53 @@
+<table style="margin-left: 452px;" class="container" ng-show="ShowCompanyOptions">
+  <tr >
+  	<td  ng-click="clickShowCreateCoupon()" class="TDoption">Create New Coupon</td>
+    <td ng-hide="ShowCompanyCoupons" ng-click="showCoupons()" class="TDoption">Show Coupons</td>
+    <td ng-show="ShowCompanyCoupons" style="padding-right: -35px;margin-right: 37px;padding-left: 67px;"   class="TDoption" ><input placeholder="Search for coupon" type="text" ng-model="findCouponFilter"></td>
+  </tr>
+</table>
+<div  ng-include="'/CouponMangerWeb/companyPages/CreateNewCoupon.html'"></div>
+<div  ng-include="'/CouponMangerWeb/companyPages/UpdateSelectedCoupon.html'"></div>
+
+<table  class="container" ng-show="ShowCompanyCoupons">
+  <tr >
+    <td>Id</td>
+    <td>Title</td>
+    <td>category</td>
+	<td>Description</td>
+	<td>amount</td>
+	<td>price</td>
+	<td>startDate</td>
+	<td>endDate</td>
+	<td>Update</td>
+	<td>Remove</td>
+  </tr>
+   <tr ng-repeat="x in AllCompanyCouponsData | filter:findCouponFilter" > 
+    <td><input  readonly  type="text" value="{{ x.id }}"></td>
+    <td><input readonly type="text" value="{{ x.title }}"></td>
+    <td><input readonly type="text" value="{{ x.category }}"></td>
+    <td><input readonly type="text" value="{{ x.description }}"></td>
+    <td><input readonly type="text" value="{{ x.amount }}"></td>
+    <td><input readonly type="text" value="{{ x.price }}"></td>
+    <td><input readonly type="text" value="{{ x.startDate }}"></td>
+    <td><input readonly type="text" value="{{ x.endDate }}"></td>
+    <td><input ng-click="clickShowUpdateCoupon(x.id,x.title,x.category, x.description,x.amount,x.price,x.startDate,x.endDate)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
+	<td><input ng-click="deleteSelectedCoupon($index)" style="background-color:#fc032c ;" class="ButoninTable" type="button" value="remove"></td>
+  </tr>
+</table>
+
+<style>
+.TDoption{
+  background-color: #75aaff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  margin-right: 17px;
+}
+.TDoption:hover {
+  background-color: #2a73e8;
+    cursor: pointer;
+}
+
+</style>

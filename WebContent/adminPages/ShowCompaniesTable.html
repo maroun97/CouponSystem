@@ -1,0 +1,64 @@
+<table style="margin-left: 452px;" class="container" ng-show="ShowCompanies">
+  <tr >
+  <td class="TDoption" style="padding-top: 22px;padding-bottom: 24px;" ng-click="AdminShowCompanies()">Refresh Table </td>
+    <td style="padding-top: 22px;padding-bottom: 24px;" ng-click="clickShowCreateCompany()" id="btnShowCreateCompany" class="TDoption">Create new Company</td>
+    <td style="padding-right: -35px;margin-right: 37px;padding-left: 67px;"   class="TDoption" ><input placeholder="Search for company" type="text" ng-model="findCompanyFilter"></td>
+  </tr>
+</table>
+<div  ng-include="'/CouponMangerWeb/adminPages/CreateNewCompany.html'"></div>
+<div  ng-include="'/CouponMangerWeb/adminPages/UpdateSelectedCompany.html'"></div>
+
+<table  class="container" ng-show="ShowCompanies">
+  <tr >
+    <td>Id</td>
+    <td>Name</td>
+    <td>Email</td>
+	<td>Password</td>
+	<td>Update</td>
+	<td>Remove</td>
+  </tr>
+   <tr ng-repeat="x in AllComapniesData | filter:findCompanyFilter"> 
+    <td><input  readonly  type="text" value="{{ x.id }}"></td>
+    <td><input readonly type="text" value="{{ x.name }}"></td>
+    <td><input readonly type="text" value="{{ x.email }}"></td>
+    <td><input readonly type="text" value="{{ x.password }}"></td>
+    <td><input ng-click="clickShowUpdateCompany(x.id,x.name,x.email, x.password)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
+	<td><input ng-click="deleteSelectedCompany($index)" style="background-color:#fc032c ;" class="ButoninTable" type="button" value="remove"></td>
+  </tr>
+</table>
+
+<style>
+.ButoninTable{
+border-radius: 25px;
+padding-bottom: 10px;
+padding-top: 4px;
+padding-left: 12px;
+padding-right: 12px;
+
+}
+</style>
+
+
+<style>
+.TDoption{
+  background-color: #75aaff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  float: right;
+  margin-right: 17px;
+}
+.TDoption:hover {
+  background-color: #2a73e8;
+    cursor: pointer;
+}
+
+.ButoninTable{
+}
+
+.ButoninTable:hover {
+    cursor: pointer;
+}
+
+</style>

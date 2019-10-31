@@ -1,0 +1,72 @@
+
+<style>
+
+.modal6 {
+  display: {{displayStyleOfUpdateCoupon}}; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* modal6 Content */
+.modal6-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The close6 Button */
+.close6 {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close6:hover,
+.close6:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+<div id="mymodal6" class="modal6">
+
+  <!-- modal6 content -->
+  <div class="modal6-content">
+    <span ng-click="clicktheX6()" class="close6">&times;</span>
+   <form ng-submit="updateNewCoupon(updatecouponid,updatecoupontitle,updatecouponcategory,updatecoupondescription,updatecouponamount,updatecouponprice,updatecouponstartdate,updatecouponenddate)">
+    <input disabled ng-model="updatecouponid" type="text" placeholder="Id"     >
+    <input  ng-model="updatecoupontitle" type="text" placeholder="Title"     >
+     <select ng-model="updatecouponcategory" >
+<option value="RESTURANTS">RESTURANTS</option>
+<option value="ELECTRICITY">ELECTRICITY</option>
+<option value="FOOD">FOOD</option>
+<option value="HEALTH">HEALTH</option>
+<option value="SPORTS">SPORTS</option>
+<option value="CAMPING">CAMPING</option>
+<option value="TRAVELLING">TRAVELLING</option>
+      </select>
+    <input ng-model="updatecoupondescription" type="text" placeholder="Description.."     >
+    <input ng-model="updatecouponamount" type="text" placeholder="Amount"   >
+    <input ng-model="updatecouponprice" type="text" placeholder="Price" >
+    <br>Start Date: <input ng-model="updatecouponstartdate" type="date" >
+     <br>End Date: <input ng-model="updatecouponenddate" type="date" >
+     <br>
+    <input  type="submit" value="update">
+    </form>
+  </div>
+
+</div>
+
+

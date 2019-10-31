@@ -1,0 +1,71 @@
+
+<style>
+
+.modal5 {
+  display: {{displayStyleOfCreateCoupon}}; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* modal5 Content */
+.modal5-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The close5 Button */
+.close5 {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close5:hover,
+.close5:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+<div id="mymodal5" class="modal5">
+
+  <!-- modal5 content -->
+  <div class="modal5-content">
+    <span ng-click="clicktheX5()" class="close5">&times;</span>
+    <form ng-submit="addNewCoupon(addcoupontitle,addcouponcategory,addcoupondescription,addcouponamount,addcouponprice,addcouponstartdate,addcouponenddate)">
+    <input ng-model="addcoupontitle" type="text" placeholder="Title"     >
+     <select ng-model="addcouponcategory" >
+<option value="RESTURANTS">RESTURANTS</option>
+<option value="ELECTRICITY">ELECTRICITY</option>
+<option value="FOOD">FOOD</option>
+<option value="HEALTH">HEALTH</option>
+<option value="SPORTS">SPORTS</option>
+<option value="CAMPING">CAMPING</option>
+<option value="TRAVELLING">TRAVELLING</option>
+      </select>
+    <input ng-model="addcoupondescription" type="text" placeholder="Description.."     >
+    <input ng-model="addcouponamount" type="text" placeholder="Amount"   >
+    <input ng-model="addcouponprice" type="text" placeholder="Price" >
+    <br>Start Date: <input ng-model="addcouponstartdate" type="date" >
+     <br>End Date: <input ng-model="addcouponenddate" type="date" >
+     <br>
+    <input  type="submit" value="Add">
+    </form>
+  </div>
+
+</div>
+
+

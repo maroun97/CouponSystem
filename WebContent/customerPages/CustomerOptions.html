@@ -1,0 +1,34 @@
+<div>
+<table style="margin-left: 452px;" class="container" ng-show="ShowCustomerOptions">
+  <tr >
+  	<td ng-hide="ShowPurchasedCoupons" ng-click="clickShowPurchasedCoupons()" class="TDoption">Show purchased coupons</td>
+    <td ng-show="ShowPurchasedCoupons" ng-click="showCouponsToPurchase()" class="TDoption">Show Coupons</td>
+    <td  style="padding-right: -35px;margin-right: 37px;padding-left: 67px;"   class="TDoption" ><input placeholder="Search for coupon" type="text" ng-model="findCouponFilterToPurchase"></td>
+  </tr>
+</table>
+
+<table  class="container" ng-show="ShowCustomerOptions">
+  <tr >
+    <td>Title</td>
+    <td>category</td>
+	<td>Description</td>
+	<td>amount</td>
+	<td>price</td>
+	<td>startDate</td>
+	<td>endDate</td>
+	<td>Purchase</td>
+  </tr>
+   <tr ng-repeat="x in AllCouponsData | filter:findCouponFilterToPurchase" > 
+    <td><input readonly type="text" value="{{ x.title }}"></td>
+    <td><input readonly type="text" value="{{ x.category }}"></td>
+    <td><input readonly type="text" value="{{ x.description }}"></td>
+    <td><input readonly type="text" value="{{ x.amount }}"></td>
+    <td><input readonly type="text" value="{{ x.price }}"></td>
+    <td><input readonly type="text" value="{{ x.startDate }}"></td>
+    <td><input readonly type="text" value="{{ x.endDate }}"></td>
+    <td><input ng-click="ClickPurchase($index)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="Purchase"></td>
+  </tr>
+</table>
+
+
+</div>

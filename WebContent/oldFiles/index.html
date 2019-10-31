@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="customersCtrl" ng-init="init()">
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+ <script src="scriptFiles/mainScripts.js"></script>
+ <link rel="stylesheet" href="styles/styles.css">
+<meta charset="UTF-8">
+<title>{{homePageTitle}}</title>
+<style>
+<style>
+* {
+
+  box-sizing: border-box;
+}
+
+input[type=text],input[type=password],input[type=email]{
+ width: 76%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+
+}
+ select, textarea {
+  width: 76%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+
+#logOutButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+#logOutButton:hover {
+  background-color: #45a049;
+}
+
+input[type=submit] {
+  background-color: #6b8af2;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #3762f0;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin-top: 53px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+</style>
+</head>
+<body style="margin-top: -16px;">
+<div class="container" ng-show="ShowLoginForm">
+
+<h4>Please do Login  </h4>
+  <form ng-submit="Login()">
+  <div class="row">
+    <div class="col-25">
+      <label for="Email">Email</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="Email"  placeholder="Your email.." ng-model="email" >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="Password"> Password</label>
+    </div>
+    <div class="col-75">
+      <input type="password"  placeholder="password"  id="Password" ng-model="pass">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25">
+      <label for="Type">Country</label>
+    </div>
+    <div class="col-75">
+      <select ng-model="type" id="Type" >
+ <option value="admin">Admin</option>
+  <option value="company">Company</option>
+  <option value="customer">Customer</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-25"></div><div class="col-75"></div>
+  </div>
+  <div class="row">
+    <input type="submit" value="Login">
+  </div>
+  </form>
+</div>
+
+
+    <h4  ng-show="ShowWelcome">welcome {{email}} <input id="logOutButton" style="float:right;" type="button" ng-click="LogOut()"  value="Log out"/>  </h4>
+
+
+<table id="CompanyTable" ng-show="ShowCompaniesTable">
+  <tr>
+     <td><button ng-click="ShowAllComapanies()">Get All Companies</button></td>
+     <td><button ng-click="GetOneCompany()">Get one Company</button></td>
+     <td><button ng-click="AddOneCompany()">Add one Company </button></td>
+     <td><button ng-click="Delete_Company()">Delete Company</button></td>
+     <td><button ng-click="Update_Company()">Update Company</button></td>
+  </tr>
+</table>
+
+
+<div ng-include="'/CouponMangerWeb/adminPages/ShowCompaniesTable.html'"></div>
+
+
+<table ng-show="ShowOneCompany">
+<h3 ng-show="ShowOneCompany">Showing one company</h3>
+  <tr >
+    <td>Id</td>
+    <td>Name</td>
+    <td>Email</td>
+	<td>Password</td>
+  </tr>
+ <tr > 
+    <td>{{ myData.id }}</td>
+    <td>{{ myData.name }}</td>
+     <td>{{ myData.email }}</td>
+          <td>{{ myData.password }}</td>
+  </tr>
+</table>
+
+
+
+
+
+<form   ng-submit="submitForm()"  ng-show="ShowOneCompany"  >
+ <h4>find company by chosen id</h4>   
+    id:<input ng-model="companyID" type="text" name="companyID"/><br/><br/>  
+    <input type="submit" name="user" value="show Company"/>  
+    </form>  
+    
+    <form   ng-submit="AddOneCompanyForm()"  ng-show="ShowAddOneCompany"  >
+ <h4>Add new company </h4>   
+    Name:<input ng-model="companyName" type="text" /><br/><br/>  
+    Email:<input ng-model="companyEmail" type="email" /><br/><br/>
+    Password:<input ng-model="companyPassword" type="password" /><br/><br/>    
+    <input type="submit"  value="Add Company"/>  
+    </form>  
+    
+        <form   ng-submit="DeleteOneCompanyForm()"  ng-show="ShowDeleteCompany"  >
+ <h4>Delete Company </h4>   
+ id:<input ng-model="companyID" type="text" /><br/><br/>    
+    <input type="submit"  value="Delete Company"/>  
+    </form>  
+    
+    
+ <form   ng-submit="GetOneCompanyToUpdateForm()"  ng-show="ShowGetOneCompanyToUpdateForm"  >
+ <h4>Get Company to update it! </h4>   
+ id:<input ng-model="companyID" type="text" /><br/><br/>    
+    <input type="submit"  value="Get Company"/>  
+    </form>  
+     <form   ng-submit="UpdateOneCompanyForm()"  ng-show="ShowUpdateOneCompanyForm"  >
+ <h4>Update it! </h4> 
+    Name:<input ng-model="companyName" type="text" /><br/><br/>  
+    Email:<input ng-model="companyEmail" type="email" /><br/><br/>
+    Password:<input ng-model="companyPassword" type="password" /><br/><br/>    
+	<input type="submit"  value="Update Company"/>  
+    </form>  
+    
+    
+    
+    
+
+</body>
+</html>

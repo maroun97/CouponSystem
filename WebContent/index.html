@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="NGCouponManger" ng-controller="NGCouponMangerCtrl" ng-init="init()">
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+ <script src="scriptFiles/mainScripts.js"></script>
+ <link rel="stylesheet" href="styles/styles.css">
+<meta charset="UTF-8">
+<title>{{TITLE}}</title>
+<style>
+body { 
+
+  background-image: url("Pics/BGPic.jpg");
+}
+
+</style>
+</head>
+<body ng-click="anyWhereWindowClick()">
+<div class="header" style='background-image: url("Pics/BGPic.jpg")';>
+  <a ng-click="init()" class="logo">Coupon Management System</a>
+  <div class="header-right">
+<a class="active" ng-hide="ShowLoginPageFlag" ng-click="LogOutFunc()" >Log out</a>
+  </div>
+</div>
+<div ng-show="ShowLoginPageFlag" ng-include="'/CouponMangerWeb/LoginPages/Login.html'"></div>
+<div ng-show="ShowAdminOptions" ng-include="'/CouponMangerWeb/adminPages/ShowAdminOptions.html'"></div>
+<div ng-show="ShowCompanyOptions" ng-include="'/CouponMangerWeb/companyPages/ShowCompanyOptions.html'"></div>
+<div ng-show="ShowCustomerOptions" ng-include="'/CouponMangerWeb/customerPages/CustomerOptions.html'"></div>
+
+
+<br><br><br><br><br><br>
+</body>
+</html>
