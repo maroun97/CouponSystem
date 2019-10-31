@@ -2,6 +2,7 @@ package com.cmw.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,11 +18,12 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
-import DAO.CouponDBDAO;
-import beans.Coupon;
-import facade.AdminFacade;
-import facade.CompanyFacade;
-import facade.CustomerFacade;
+import com.hani.DAO.CouponsDBDAO;
+import com.hani.beans.Coupon;
+import com.hani.exception.CouponSystemException;
+import com.hani.facade.CustomerFacade;
+
+
 
 @Path("/CustomerService")
 public class CustomerService {
@@ -30,9 +32,9 @@ public class CustomerService {
 	 @GET
 	 @Produces(MediaType.APPLICATION_JSON)
 	 @Path("getAllCoupons")
-	public Response getAllCoupons( @Context HttpServletRequest request){
-		 CouponDBDAO couponDBDAO=new CouponDBDAO();
-		 ArrayList<Coupon> coupons = (ArrayList<Coupon>) couponDBDAO.getAllCoupon();
+	public Response getAllCoupons( @Context HttpServletRequest request) throws CouponSystemException{
+		 CouponsDBDAO couponDBDAO=new CouponsDBDAO();
+		 ArrayList<Coupon> coupons = (ArrayList<Coupon>) couponDBDAO.getAllCoupons();
 		 System.out.println("getting all coupons ");
 		 String json="";
 		  try { ObjectWriter ow = new
@@ -46,10 +48,10 @@ public class CustomerService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("purchaseCoupon")
-	public Response purchaseCoupon( @Context HttpServletRequest request,@QueryParam("id") int couponID){
+	public Response purchaseCoupon( @Context HttpServletRequest request,@QueryParam("id") int couponID) throws CouponSystemException{
 		 HttpSession session = request.getSession();
 		 CustomerFacade customerFacade= (CustomerFacade) session.getAttribute("customerFacade");
-		 CouponDBDAO couponDBDAO=new CouponDBDAO();
+		 CouponsDBDAO couponDBDAO=new CouponsDBDAO();
 		 Coupon coupon=couponDBDAO.getOneCoupon(couponID);
 		 customerFacade.purchaseCoupon(coupon);
 		
@@ -62,6 +64,26 @@ public class CustomerService {
 		  ; } catch (IOException e) { e.printStackTrace(); }
 		 return Response.status(201).entity(json).build();
 	}
+	/////////////////////////////////////////////////////////////////
 	
+	
+	 @GET
+	 @Produces(MediaType.APPLICATION_JSON)
+	 @Path("getAllPurchasedCoupons")
+	public Response getAllPurchasedCoupons( @Context HttpServletRequest request) throws CouponSystemException{
+		 HttpSession session = request.getSession();
+		 CustomerFacade customerFacade= (CustomerFacade) session.getAttribute("customerFacade");	
+		 List<Coupon> coupons = customerFacade.getCustomerCoupons();
+			
+		 System.out.println("getting all purchased coupons ");
+		 System.out.println(coupons);
+		 String json="";
+		  try { ObjectWriter ow = new
+		  ObjectMapper().writer().withDefaultPrettyPrinter(); json =
+		  ow.writeValueAsString(coupons);
+		  ; } catch (IOException e) { e.printStackTrace(); }
+		 return Response.status(201).entity(json).build();
+		 
+	 }
 
 }

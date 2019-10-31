@@ -20,11 +20,11 @@
   </tr>
    <tr ng-repeat="x in AllCustomersData | filter:findCustomerFilter"> 
     <td><input readonly  type="text" value="{{ x.id }}"></td>
-    <td><input readonly type="text" value="{{ x.firstName }}"></td>
-    <td><input readonly type="text" value="{{ x.lastName }}"></td>
+    <td><input readonly type="text" value="{{ x.first_name }}"></td>
+    <td><input readonly type="text" value="{{ x.last_name }}"></td>
     <td><input readonly type="text" value="{{ x.email }}"></td>
     <td><input readonly type="text" value="{{ x.password }}"></td>
-    <td><input ng-click="clickShowUpdateCustomer(x.id,x.firstName,x.lastName,x.email, x.password)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
+    <td><input ng-click="clickShowUpdateCustomer(x.id,x.first_name,x.last_name ,x.email, x.password)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
 	<td><input ng-click="deleteSelectedCustomer($index)" style="background-color:#fc032c ;" class="ButoninTable" type="button" value="remove"></td>
   </tr>
 </table>

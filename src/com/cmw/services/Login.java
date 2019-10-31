@@ -15,9 +15,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 
-import facade.AdminFacade;
-import facade.CompanyFacade;
-import facade.CustomerFacade;
+import com.hani.exception.CouponSystemException;
+import com.hani.facade.AdminFacade;
+import com.hani.facade.CompanyFacade;
+import com.hani.facade.CustomerFacade;
+
 @SuppressWarnings("serial")
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -36,11 +38,21 @@ public class Login extends HttpServlet {
 		}
 		else {
 			if(type.equals("company")) {
-				companyLogin(email,pass,session,response);
+				try {
+					companyLogin(email,pass,session,response);
+				} catch (CouponSystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else {
 				if(type.equals("customer")) {
-					customerLogin(email,pass,session,response);
+					try {
+						customerLogin(email,pass,session,response);
+					} catch (CouponSystemException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else {
 					System.err.println("type not found");
@@ -54,7 +66,7 @@ public class Login extends HttpServlet {
 			
 	}
 
-	private void customerLogin(String email, String pass, HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+	private void customerLogin(String email, String pass, HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException, CouponSystemException {
 
 		CustomerFacade customerFacade=new CustomerFacade();
 		
@@ -83,7 +95,7 @@ public class Login extends HttpServlet {
 		
 	}
 
-	private void companyLogin(String email, String pass, HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException {
+	private void companyLogin(String email, String pass, HttpSession session, HttpServletResponse response) throws JsonGenerationException, JsonMappingException, IOException, CouponSystemException {
 
 		CompanyFacade companyFacade=new CompanyFacade();
 		

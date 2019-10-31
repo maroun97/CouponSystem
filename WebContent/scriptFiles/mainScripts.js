@@ -22,7 +22,7 @@ app.controller('NGCouponMangerCtrl', function($scope,$http,$window) {
 	$scope.updatecustomerId="";$scope.updatecustomerfName="";$scope.updatecustomerlName="";$scope.updatecustomerEmail="";
 	$scope.updatecustomerPass="";
     $scope.AllCouponsData="";
-	
+    $scope.AllPurchasedCouponsData ="";
 	
 ///////////////////////////////// /   Admin services    //////////////////////////
 	/////////////////////////////////////////////////////////////////////
@@ -70,6 +70,8 @@ app.controller('NGCouponMangerCtrl', function($scope,$http,$window) {
 		$scope.ShowCompanyCoupons=false;
 		$scope.ShowPurchasedCoupons=false;
 		$scope.ShowCustomerOptions=false;
+		$scope.ShowCouponsForCustomer=false;
+		$scope.ShowPurchasedCouponsForCustomer=false;
 		
 		$scope.displayStyleOfCreateCompany="none";
 		$scope.displayStyleOfUpdateCompany="none";
@@ -285,7 +287,7 @@ $scope.addNewCustomer=function(fname,lname,email,pass){
 }
 //////////////////////////////////////////////////////////////
 $scope.deleteSelectedCustomer= function(index){
-	$scope.result = confirm("Are you sure , you want to delete "+ $scope.AllCustomersData[index].firstName+" ?"); 
+	$scope.result = confirm("Are you sure , you want to delete "+ $scope.AllCustomersData[index].first_name+" ?"); 
 	if ($scope.result == true) { 
 		$http({
 			method  : 'POST',
@@ -417,11 +419,11 @@ $scope.updateNewCoupon=function(id,title,category,description,amount,price,start
 $scope.ShowAllCoupons=function(){
 	 $http.get("http://"+localhost+":8080/CouponMangerWeb/rest/CustomerService/getAllCoupons").then(function (response) {
 	     $scope.AllCouponsData = response.data;
+	     $scope.ShowCouponsForCustomer=true;
 	  });
 };
 ///////////////////////////////////////////////////////////////////
 $scope.ClickPurchase=function(index){
-	alert($scope.AllCouponsData[index].id);
 	$http({
 		method  : 'POST',
 		url     : 'http://'+localhost+':8080/CouponMangerWeb/rest/CustomerService/purchaseCoupon',
@@ -430,7 +432,30 @@ $scope.ClickPurchase=function(index){
 	})
 	.then(function(response) {	 
 		$scope.TITLE="Coupon purchased ";
-	})
+		$scope.ShowAllCoupons();
+		
+	}, function (response) {
+
+		// this function handles error
+	//	alert("couldn't buy this coupon again!");
+		alert(response.data);
+
+		})
+}
+//////////////////////////////////////
+$scope.clickShowPurchasedCoupons=function(){
+	$scope.ShowPurchasedCoupons=true;
+	$scope.ShowCouponsForCustomer=false;
+	 $http.get("http://"+localhost+":8080/CouponMangerWeb/rest/CustomerService/getAllPurchasedCoupons").then(function (response) {
+	     $scope.AllPurchasedCouponsData = response.data;
+	  
+	  });
+	
+}
+$scope.showCouponsToPurchase=function(){
+	$scope.ShowAllCoupons();
+	$scope.ShowPurchasedCoupons=false;
+	
 }
 //End of Function app.controller
 });

@@ -24,13 +24,13 @@
    <tr ng-repeat="x in AllCompanyCouponsData | filter:findCouponFilter" > 
     <td><input  readonly  type="text" value="{{ x.id }}"></td>
     <td><input readonly type="text" value="{{ x.title }}"></td>
-    <td><input readonly type="text" value="{{ x.category }}"></td>
+    <td><input readonly type="text" value="{{ x.category_id }}"></td>
     <td><input readonly type="text" value="{{ x.description }}"></td>
     <td><input readonly type="text" value="{{ x.amount }}"></td>
     <td><input readonly type="text" value="{{ x.price }}"></td>
     <td><input readonly type="text" value="{{ x.startDate }}"></td>
     <td><input readonly type="text" value="{{ x.endDate }}"></td>
-    <td><input ng-click="clickShowUpdateCoupon(x.id,x.title,x.category, x.description,x.amount,x.price,x.startDate,x.endDate)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
+    <td><input ng-click="clickShowUpdateCoupon(x.id,x.title,x.category_id, x.description,x.amount,x.price,x.startDate,x.endDate)" style="background-color:#f5f12a ;" class="ButoninTable" type="button" value="update"></td>
 	<td><input ng-click="deleteSelectedCoupon($index)" style="background-color:#fc032c ;" class="ButoninTable" type="button" value="remove"></td>
   </tr>
 </table>
